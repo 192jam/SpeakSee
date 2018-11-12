@@ -52,7 +52,7 @@ Link to your sub-projects here. Clone the [sub-project repo](https://github.com/
 
 ### Trello
 
-Link to your Trello boards here:
+Link to your Trello boards here: https://trello.com/b/LaDXj1IO/speak-and-see-team
 
 * Overview
 * Discussions
