@@ -5,6 +5,12 @@ This is a template, which lays out a structure for a main project. It can be use
 
 **To keep you and your client safe**, here are some ground rules:
 
+
+https://speak-see-team.github.io/SpeakSee/wireframe
+#### [docs](https://speak-see-team.githu.io/SpeakSee/wireframe)
+
+
+
 * **NO authentication data:** 
   * usernames, passwords
   * shared secrets
