@@ -1,1 +1,3 @@
+These file has the code snippet for scrolling text with button.
+Download these 3 file if you wanna see how it works...
 
