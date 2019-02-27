@@ -33,36 +33,8 @@
     <!-- your app's js -->
   </head>
   <body>
-    <ion-pane ng-controller="mainCtrl">
-        <div class="bar content  bar-header">
-            <a class="button icon-left ion-chevron-left button-clear button-dark">Draw</a>
-          </div>
 
-      
-    <ion-content class="has-header padding">
-    
-        <div class="card">
-          <ion-text color="secondary">
-              <h1>{{recognized}}</h1>
-            </ion-text>
-        </div>  
-        
-        <div class="row row-bottom">
-        <button class="button icon ion-mic-a" style=" border-radius:70%;" shape="round" ng-click="record()" ng-mouseup="stop()"></button>
-      </div>
-
-      <button class="button" ng-click="showActionsheet()">
-          Show Actionsheet
-        </button>
-      <!-- <button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
-<button onclick="window.plugins.toast.showLongBottom('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showLongBottom</button>-->
-
-<button onclick="window.plugins.toast.show('Hello there!', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast show long center</button> 
-
-
-
-      <canvas width="500" height="300" id="canvas" drawing></canvas>
-      </ion-content>
-    </ion-pane>
+    <ion-nav-view></ion-nav-view>
+  
   </body>
 </html>

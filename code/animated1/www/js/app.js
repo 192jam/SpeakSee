@@ -34,92 +34,51 @@ angular.module('starter', ['ionic'])
   });
 
 })
-// .config(($stateProvider, $urlRouterProvider) => 
-// {
-// 	$stateProvider
-// 	.state('home',
-// 	{
-// 		url:'/',
-// 		templateUrl: 'templates/speak.html',
-// 		controller: 'mainCtrl'
+.config(($stateProvider, $urlRouterProvider) => 
+{
+	$stateProvider
+	
+	.state('home',{
+		url:'/home',
+		templateUrl:'templates/home.html'
+	
+	})
 
-// 	})
+	.state('draw',
+	{
+		url:'/draw',
+		templateUrl: 'templates/draw.html',
+		// controller: 'drawCtrl'
 
-// 	$urlRouterProvider.otherwise('/');
+	})
 
-// })
+
+	$urlRouterProvider.otherwise('/home');
+
+})
 .controller('mainCtrl', function($scope,$ionicActionSheet) {
 	$scope.recognized = 'asd';
 
-	// var r = new SpeechRecognition();
 	$scope.record = ()=>{
-	// Toast.show(`I'm a toast but i am not tasty. So this doesn't make sense but It'll fix your code.`, '5000', 'center');
 		window.plugins.speechRecognition.hasPermission(
-			(event)=>
-			{
-				if(event===true){
-					let options = {
-						language:'en-GB',
-						showPartial:false 
-					}
-					window.plugins.speechRecognition.startListening(
-					(event)=>
-					{
-						$scope.recognized= event[0];
-						console.log(event)
-						$scope.$apply()
-					},()=>
-					{
-						console.log("err");
-					},options)
+		(event)=> {
+			if(event===true) {
+				let options = {
+					language:'en-GB',
+					showPartial:false 
 				}
-			},window.plugins.speechRecognition.requestPermission());
-
-
-
-		// r.lang = 'es-ES';
-		// r.onresult = (event)=>{
-		// 	console.log(r)
-
-		// 	if(event.results.length >0)
-		// 	{
-		// 		$scope.recognized = event.results[0][0].transcript;
-		// 		$scope.$apply();
-		// 	}
-		// };
-		// r.onend = (event)=>{
-		// 	console.log(event)
-		// 	// if(event.results.length >0)
-		// 	// {
-		// 	// 	$scope.recognized = event.results[0][0].transcript;
-		// 	// 	$scope.$apply();
-		// 	// }
-		// };
-		// r.onnomatch = (event => {
-		// 	console.log('No match found.');
-		//   });
-		//   r.onerror = (event => {
-		// 	console.log('Error happens.');
-		//   });
-		// r.start();
+				window.plugins.speechRecognition.startListening(
+				(event)=>{
+					$scope.recognized= event[0];
+					console.log(event)
+					$scope.$apply()
+				}, ()=> {
+					console.log("err");
+				},options)
+			}
+		},window.plugins.speechRecognition.requestPermission());
 	};
 
-
-	$scope.stop = ()=>{
-		console.log("sdf");
-
-		// window.plugins.speechRecognition.stopListening()
-	}
-
-	// var ctx = document.getElementsByName("canvas")[0].getContext('2d');
-	// let drawing =  false;
-	// let lastX ;
-	// let lastY;
-
-	// $scope.canvasTouch(event)
-	// {
-	// 	console.log(event);
-	// }
 	$scope.showActionsheet = function() {
     
 		$ionicActionSheet.show({
@@ -151,22 +110,17 @@ angular.module('starter', ['ionic'])
     restrict: "A",
     link: (scope, element)=>{
       var ctx = element[0].getContext('2d');
-      
-      // variable that decides if something should be drawn on mousemove
       var drawing = false;
       
-      // the last coordinates before the current move
       var lastX;
 			var lastY;
 			var canvasPosition = element[0].getBoundingClientRect();
-
-			console.log(element);
-      element.bind('touchstart', function(event){
-        
+			
+			element.bind('touchstart', function(event)
+			{ 
         lastX = event.touches[0].pageX - canvasPosition.x;
         lastY = event.touches[0].pageY - canvasPosition.y;
-        console.log("sdf");
-        // begins new line
+       // draw a new line
         ctx.beginPath();
         
         drawing = true;
@@ -176,10 +130,7 @@ angular.module('starter', ['ionic'])
           // get current mouse position
           currentX = event.touches[0].pageX - canvasPosition.x;
 					currentY = event.touches[0].pageY - canvasPosition.y;
-					console.log(event)
-          
-          // draw(lastX, lastY, currentX, currentY);
-					
+          					
 					ctx.beginPath();
 					ctx.lineJoin = "round";
 					ctx.moveTo(lastX, lastY);
