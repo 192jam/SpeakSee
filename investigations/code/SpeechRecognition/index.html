@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  ng-app="starter">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="js/app.js"></script>
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+  </head>
+  <body>
+    <ion-pane ng-controller="mainCtrl">
+        <div class="bar content  bar-header">
+            <a class="button icon-left ion-chevron-left button-clear button-dark">Draw</a>
+          </div>
+
+      
+    <ion-content class="has-header padding">
+    
+        <div class="card">
+          <ion-text color="secondary">
+              <h1>{{recognized}}</h1>
+            </ion-text>
+        </div>  
+        
+        <div class="row row-bottom">
+        <button class="button icon ion-mic-a" style=" border-radius:70%;" shape="round" ng-click="record()" ng-mouseup="stop()"></button>
+      </div>
+
+      <button class="button" ng-click="showActionsheet()">
+          Show Actionsheet
+        </button>
+      <!-- <button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
+<button onclick="window.plugins.toast.showLongBottom('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showLongBottom</button>-->
+
+<button onclick="window.plugins.toast.show('Hello there!', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast show long center</button> 
+
+
+
+      <canvas width="500" height="300" id="canvas" drawing></canvas>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
