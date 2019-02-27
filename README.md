@@ -1,14 +1,9 @@
-# LiveProjectsTemplate
+# Speak and See
 This is a template, which lays out a structure for a main project. It can be used by any team working on an MMU LiveProject.
 
 **NOTE**: Your live projects are PUBLIC, on both GitHub and Trello meaning anyone can see them. 
 
 **To keep you and your client safe**, here are some ground rules:
-
-
-https://speak-see-team.github.io/SpeakSee/wireframe
-#### [docs](https://speak-see-team.githu.io/SpeakSee/wireframe)
-
 
 
 * **NO authentication data:** 
@@ -34,7 +29,7 @@ https://speak-see-team.github.io/SpeakSee/wireframe
 
 ###  Folders
 
-#### [docs](https://cmdt.github.io/LiveProjectsTemplate/#/page/start)
+#### [docs](https://speak-see-team.githu.io/SpeakSee/wireframe)
 
 Holds live wireframes for the project. 
 
