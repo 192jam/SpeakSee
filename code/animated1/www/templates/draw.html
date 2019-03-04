@@ -1,16 +1,9 @@
-<ion-view view-title="Draw">
-    <ion-content >
-          <div class="bar content  bar-header">
-            <a class="button icon ion-chevron-left button-clear button-dark"  href="#/home" >Back</a>
-          </div>
 
-    
-          <!-- <a class="button icon-left ion-chevron-left button-clear button-dark">Back</a>
-      <button class="button button button-positive icon ion-mic-a"></button>
-        </a> -->
-      <canvas width="100%" height="300" id="canvas" drawing></canvas>
-
-      <!-- <ion-icon name="mic"></ion-icon> -->
+  <div class="bar bar-header" ng-controller ="drawCtrl">
+    <a class="button icon ion-chevron-left button-royal" button-dark"  href="#/home" >Back</a>
+    <a class="button icon ion-paint-brush-right button-dark" button-dark"  ng-click="reset()" >Clear</a>
+  </div>
   
+  <ion-content  ng-controller ="drawCtrl" >
+      <canvas drawing></canvas>       
   </ion-content>  
-</ion-view>
