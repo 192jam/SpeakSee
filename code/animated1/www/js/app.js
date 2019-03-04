@@ -57,6 +57,33 @@ angular.module('starter', ['ionic'])
 
 })
 .controller('mainCtrl', function($scope,$ionicActionSheet) {
+	var myElement = document.querySelector('body');
+	var mc = new Hammer.Manager(myElement);
+	var pinch = new Hammer.Pinch();
+	mc.add([pinch]);
+	 document.querySelector("h1").style.fontSize="25vw";
+
+	mc.on("pinchin", function(ev) {
+   console.log (ev.type +" ");
+   
+   document.querySelector("h1").style.fontSize;
+ let fontSize=document.querySelector("h1").style.fontSize;
+ let size = parseFloat (fontSize);
+ console.log(size);
+ size=size-1;
+ document.querySelector("h1").style.fontSize=size +"vw";
+ 
+});
+	mc.on("pinchout", function(ev) {
+   console.log (ev.type +" ");
+    let fontSize=document.querySelector("h1").style.fontSize;
+ let size = parseFloat (fontSize);
+ console.log(size);
+ size=size+1;
+ document.querySelector("h1").style.fontSize=size +"vw";
+   
+ 
+});
 	$scope.recognized = 'asd';
 
 	$scope.record = ()=>{
