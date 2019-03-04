@@ -3,7 +3,15 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
+// import { SpeechRecognition } from '@ionic-native/speech-recognition';
+
+// import { Camera } from '@ionic-native/camera';
+// import { Toast } from '@ionic-native/toast/ngx';
+
+// angular.module('starter', ['ionic','ngMaterial'])
 angular.module('starter', ['ionic'])
+
+
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,8 +29,11 @@ angular.module('starter', ['ionic'])
       // Set the statusbar to use the default style, tweak this to
       // remove the status bar on iOS or change it to use white instead of dark colors.
       StatusBar.styleDefault();
-		}
+	}
+	
+
   });
+
 })
 .config(($stateProvider, $urlRouterProvider) => 
 {
@@ -37,38 +48,46 @@ angular.module('starter', ['ionic'])
 	{
 		url:'/draw',
 		templateUrl: 'templates/draw.html',
+		// controller: ''
 	})
 
 	$urlRouterProvider.otherwise('/home');
+
 })
 .controller('mainCtrl', function($scope,$ionicActionSheet) {
 	var myElement = document.querySelector('body');
 	var mc = new Hammer.Manager(myElement);
 	var pinch = new Hammer.Pinch();
 	mc.add([pinch]);
-	document.querySelector("h1").style.fontSize="25vw";
+	 document.querySelector("h1").style.fontSize="25vw";
 
 	mc.on("pinchin", function(ev) {
-		document.querySelector("h1").style.fontSize;
-		let fontSize=document.querySelector("h1").style.fontSize;
-		let size = parseFloat (fontSize);
-		size=size-1;
-		document.querySelector("h1").style.fontSize=size +"vw";
-	});
-
+   console.log (ev.type +" ");
+   
+   document.querySelector("h1").style.fontSize;
+ let fontSize=document.querySelector("h1").style.fontSize;
+ let size = parseFloat (fontSize);
+ console.log(size);
+ size=size-1;
+ document.querySelector("h1").style.fontSize=size +"vw";
+ 
+});
 	mc.on("pinchout", function(ev) {
-		let fontSize=document.querySelector("h1").style.fontSize;
-		let size = parseFloat (fontSize);
-		size=size+1;
-		document.querySelector("h1").style.fontSize=size +"vw";
-	});
-
+   console.log (ev.type +" ");
+    let fontSize=document.querySelector("h1").style.fontSize;
+ let size = parseFloat (fontSize);
+ console.log(size);
+ size=size+1;
+ document.querySelector("h1").style.fontSize=size +"vw";
+   
+ 
+});
 	$scope.recognized = 'asd';
 
 	$scope.record = ()=>{
 		window.plugins.speechRecognition.hasPermission(
 		(event)=> {
-			if(event === true) {
+			if(event===true) {
 				let options = {
 					language:'en-GB',
 					showPartial:false 
@@ -79,7 +98,7 @@ angular.module('starter', ['ionic'])
 					console.log(event)
 					$scope.$apply()
 				}, ()=> {
-					window.plugins.toast.show('Please press button and speak into the device', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
+					console.log("err");
 				},options)
 			}
 		},window.plugins.speechRecognition.requestPermission());
@@ -95,8 +114,8 @@ angular.module('starter', ['ionic'])
 		  // ],
 		  // destructiveText: 'Delete',
 		  cancelText: 'Press and hold the button to record',
-		  // cancel: function() {
-		  // }
+		  cancel: function() {
+		  }
 		});
 	}
 
@@ -123,26 +142,24 @@ angular.module('starter', ['ionic'])
 			element[0].width = window.screen.width - canvasPosition.x 
 			element[0].height = window.screen.height - canvasPosition.y 
 			console.log(canvasPosition);
-			element[0].bind('touchstart', function(event)
+			element.bind('touchstart', function(event)
 			{ 
         lastX = event.touches[0].pageX - canvasPosition.x;
         lastY = event.touches[0].pageY - canvasPosition.y;
        // draw a new line
         ctx.beginPath();
-				console.log("start",event.touches[0].pageX);
+				// console.log("start",event.touches[0].pageX);
         drawing = true;
       });
-      element[0].bind('touchmove', (event)=>{
-				event.preventDefault();
-
+      element.bind('touchmove', (event)=>{
 				console.log(event.touches[0]);
         if(drawing){
 					// console.log("draw",event.touches[0]);
           // get current mouse position
           currentX = event.touches[0].pageX - canvasPosition.x;
 					currentY = event.touches[0].pageY - canvasPosition.y;
-					console.log("postion",	currentX, currentY);	
-					console.log( "offset",	canvasPosition.x,"y :",canvasPosition.y);	
+          			console.log("postion",	currentX, currentY);	
+          			console.log( "offset",	canvasPosition.x,"y :",canvasPosition.y);	
 					ctx.beginPath();
 					ctx.lineJoin = "round";
 					// ctx.lineCap = "round"
@@ -159,13 +176,41 @@ angular.module('starter', ['ionic'])
           lastY = currentY;
         }
         
-      },{passive:true});
-  
-      element[0].bind('touchend onmouseup', function(event){
+      });
+      // element.bind('onmousemove', (event)=>{
+      //   if(drawing){
+			// 		console.log("draw",event);
+      //     // get current mouse position
+      //     currentX = event.touches[0].pageX - canvasPosition.x;
+			// 		currentY = event.touches[0].pageY - canvasPosition.y;
+      //     			console.log(	lastX, lastY,currentX, currentY);	
+      //     			console.log( "offset",	canvasPosition);	
+			// 		ctx.beginPath();
+			// 		ctx.lineJoin = "round";
+			// 		ctx.moveTo(lastX, lastY);
+			// 		ctx.lineTo(currentX, currentY);
+			// 		ctx.closePath();
+			// 		ctx.strokeStyle = '#1abc9c';
+			// 		ctx.lineWidth = 10;
+			// 		ctx.stroke(); 
+
+      //     // set current coordinates to last one
+      //     lastX = currentX;
+      //     lastY = currentY;
+      //   }
+        
+      // });
+      element.bind('touchend onmouseup', function(event){
         // stop drawing
         drawing = false;
       });
         
+      // // canvas reset
+      // function reset(){
+      //  element[0].width = element[0].width; 
+      // }
+      
+      
     }
   };
 });
