@@ -8,6 +8,7 @@
 // import { Camera } from '@ionic-native/camera';
 // import { Toast } from '@ionic-native/toast/ngx';
 
+// angular.module('starter', ['ionic','ngMaterial'])
 angular.module('starter', ['ionic'])
 
 
@@ -41,17 +42,14 @@ angular.module('starter', ['ionic'])
 	.state('home',{
 		url:'/home',
 		templateUrl:'templates/home.html'
-	
 	})
 
 	.state('draw',
 	{
 		url:'/draw',
 		templateUrl: 'templates/draw.html',
-		// controller: 'drawCtrl'
-
+		// controller: ''
 	})
-
 
 	$urlRouterProvider.otherwise('/home');
 
@@ -100,11 +98,7 @@ angular.module('starter', ['ionic'])
 					console.log(event)
 					$scope.$apply()
 				}, ()=> {
-					window.plugins.toast.show('Press and hold the record button', 'long',
-					 'bottom', function(a){console.log('toast success: ' + a)},
-					  function(b){alert('toast error: ' + b)});
-					// console.log("err");
-					window
+					console.log("err");
 				},options)
 			}
 		},window.plugins.speechRecognition.requestPermission());
@@ -113,60 +107,66 @@ angular.module('starter', ['ionic'])
 	$scope.showActionsheet = function() {
     
 		$ionicActionSheet.show({
-		  titleText: 'ActionSheet Example',
-		  buttons: [
-			{ text: '<i class="icon ion-share"></i> Share' },
-			{ text: '<i class="icon ion-arrow-move"></i> Move' },
-		  ],
-		  destructiveText: 'Delete',
-		  cancelText: 'Cancel',
+		  titleText: 'Press and hold the button to record',
+		  // buttons: [
+			// { text: '<i class="icon ion-share"></i> Share' },
+			// { text: '<i class="icon ion-arrow-move"></i> Move' },
+		  // ],
+		  // destructiveText: 'Delete',
+		  cancelText: 'Press and hold the button to record',
 		  cancel: function() {
-			console.log('CANCELLED');
-		  },
-		  buttonClicked: function(index) {
-			console.log('BUTTON CLICKED', index);
-			return true;
-		  },
-		  destructiveButtonClicked: function() {
-			console.log('DESTRUCT');
-			return true;
 		  }
 		});
 	}
 
 
 })
+.controller('drawCtrl',($scope) =>
+{
+	$scope.reset = function(){
+		let canvas = document.querySelector('canvas');
+			canvas.width = canvas.width; 
+	 }
+})
 .directive("drawing", function(){
   return {
     restrict: "A",
     link: (scope, element)=>{
-      var ctx = element[0].getContext('2d');
-      var drawing = false;
+			var ctx = element[0].getContext('2d');
+			var drawing = false;
+			console.log(element);
       
       var lastX;
 			var lastY;
-			var canvasPosition = element[0].getBoundingClientRect();
-			
+			let canvasPosition = element[0].getBoundingClientRect();
+			element[0].width = window.screen.width - canvasPosition.x 
+			element[0].height = window.screen.height - canvasPosition.y 
+			console.log(canvasPosition);
 			element.bind('touchstart', function(event)
 			{ 
         lastX = event.touches[0].pageX - canvasPosition.x;
         lastY = event.touches[0].pageY - canvasPosition.y;
        // draw a new line
         ctx.beginPath();
-        
+				// console.log("start",event.touches[0].pageX);
         drawing = true;
       });
       element.bind('touchmove', (event)=>{
+				console.log(event.touches[0]);
         if(drawing){
+					// console.log("draw",event.touches[0]);
           // get current mouse position
           currentX = event.touches[0].pageX - canvasPosition.x;
 					currentY = event.touches[0].pageY - canvasPosition.y;
-          					
+          			console.log("postion",	currentX, currentY);	
+          			console.log( "offset",	canvasPosition.x,"y :",canvasPosition.y);	
 					ctx.beginPath();
 					ctx.lineJoin = "round";
+					// ctx.lineCap = "round"
 					ctx.moveTo(lastX, lastY);
 					ctx.lineTo(currentX, currentY);
 					ctx.closePath();
+					// ctx.strokeStyle = '#1abc9c';
 					ctx.strokeStyle = '#1abc9c';
 					ctx.lineWidth = 10;
 					ctx.stroke(); 
@@ -177,15 +177,38 @@ angular.module('starter', ['ionic'])
         }
         
       });
-      element.bind('touchend', function(event){
+      // element.bind('onmousemove', (event)=>{
+      //   if(drawing){
+			// 		console.log("draw",event);
+      //     // get current mouse position
+      //     currentX = event.touches[0].pageX - canvasPosition.x;
+			// 		currentY = event.touches[0].pageY - canvasPosition.y;
+      //     			console.log(	lastX, lastY,currentX, currentY);	
+      //     			console.log( "offset",	canvasPosition);	
+			// 		ctx.beginPath();
+			// 		ctx.lineJoin = "round";
+			// 		ctx.moveTo(lastX, lastY);
+			// 		ctx.lineTo(currentX, currentY);
+			// 		ctx.closePath();
+			// 		ctx.strokeStyle = '#1abc9c';
+			// 		ctx.lineWidth = 10;
+			// 		ctx.stroke(); 
+
+      //     // set current coordinates to last one
+      //     lastX = currentX;
+      //     lastY = currentY;
+      //   }
+        
+      // });
+      element.bind('touchend onmouseup', function(event){
         // stop drawing
         drawing = false;
       });
         
-      // canvas reset
-      function reset(){
-       element[0].width = element[0].width; 
-      }
+      // // canvas reset
+      // function reset(){
+      //  element[0].width = element[0].width; 
+      // }
       
       
     }

@@ -1,21 +1,31 @@
 <ion-pane ng-controller="mainCtrl">
-    <div class="bar content  bar-header">
-        <a class="button icon-left ion-paintbrush  button-royal"  href="#/draw" >Draw</a>
-    </div>
-    
-    <ion-content class="has-header fixed-content">
-        <div class="  card">
-            <ion-text color="secondary">
-                <h1  style="text-overflow:scale;font-size:25vw">{{recognized}}</h1>
+        <div class="bar content  bar-header">
+            <a class="button icon ion-brush button-clear button-dark"  href="#/draw" >Draw</a>
+          </div>
+
+      
+    <ion-content class="has-header padding">
+   
+        <div class="card">
+          <ion-text color="secondary">
+              <h1>{{recognized}}</h1> <!---event handler!-->
             </ion-text>
         </div>  
+        
         <div class="row row-bottom">
-            <button class="button icon button-royal ion-mic-a" style=" border-radius:70%;" shape="round" ng-click="record()" ng-mouseup="stop()"></button>
-        </div>
+        <button class="button icon ion-mic-a" style=" border-radius:70%;" shape="round" ng-click="record()" ng-mouseup="stop()"></button>
+      </div>
 
-        <!-- <button class="button" ng-click="showActionsheet()">Show Actionsheet</button>
-         <button class="button" onclick="window.plugins.toast.show('Press and hold the record button', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast show long center</button> 
-          <canvas style="border: 1px solid black;" id="canvas" drawing></canvas>         -->
+      <button class="button" ng-click="showActionsheet()">
+          Show Actionsheet
+        </button>
+      <!-- <button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
+<button onclick="window.plugins.toast.showLongBottom('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showLongBottom</button>-->
 
-        </ion-content>
-</ion-pane>
+<button onclick="window.plugins.toast.show('Hello there!', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast show long center</button> 
+
+
+
+      <canvas width="500" height="300" id="canvas" drawing></canvas>
+      </ion-content>
+    </ion-pane>
