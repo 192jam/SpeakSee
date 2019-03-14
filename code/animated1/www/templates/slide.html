@@ -1,0 +1,31 @@
+<ion-pane ng-controller="mainCtrl"> 
+  <div class="bar content  bar-header"> 
+    <a class="button icon-left ion-paintbrush  button-royal"  href="#/draw" >Draw</a>
+    <a class="button icon end button-dark"  href="#/home" >Auto scroll</a>
+    <!-- <ion-toggle ng-model="airplaneMode" toggle-class="toggle">Airplane Mode</ion-toggle> -->
+  </div>
+  <!-- <a value='Stop Scrolling' id ='b1' style="display:none" ng-click='stopScroll()'></a> -->
+     <ion-content class="has-header" scroll="false">
+        <ion-slides id="manualscroll"  options="options" slider="data.slider">
+          <!-- {{items}} -->
+            <ion-slide-page ng-repeat="text in items">
+                  <h1 class="auto" id="maintext">{{text}}</h1>
+    
+            </ion-slide-page>
+            
+            
+          </ion-slides> 
+        </ion-content>
+   <
+   <div ng-controller="swipeCtrl">
+       I'm a Header in a Card!
+   </div>
+   >
+   
+
+  <div class="bar bar-footer">
+    <button class="button icon button-royal ion-mic-a" style=" border-radius:70%;" shape="round" ng-click="record()" ng-mouseup="stop()"></button>
+  </div>
+</ion-pane>
+        
+        

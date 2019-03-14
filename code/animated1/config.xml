@@ -85,5 +85,6 @@
     <plugin name="phonegap-plugin-speech-recognition" spec="https://github.com/macdonst/SpeechRecognitionPlugin" />
     <plugin name="cordova-plugin-speechrecognition" spec="^1.2.0" />
     <plugin name="cordova-plugin-x-toast" spec="2.7.2" />
+    <plugin name="cordova-plugin-screen-orientation" spec="3.0.1" />
     <engine name="android" spec="7.1.4" />
 </widget>
