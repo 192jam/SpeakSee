@@ -86,5 +86,7 @@
     <plugin name="cordova-plugin-speechrecognition" spec="^1.2.0" />
     <plugin name="cordova-plugin-x-toast" spec="2.7.2" />
     <plugin name="cordova-plugin-screen-orientation" spec="3.0.1" />
+    <plugin name="cordova-plugin-kiosk" spec="https://github.com/hkalina/cordova-plugin-kiosk.git" />
+    <plugin name="com.manueldeveloper.volume-buttons" spec="https://github.com/manueldeveloper/cordova-plugin-volume-buttons.git" />
     <engine name="android" spec="7.1.4" />
 </widget>

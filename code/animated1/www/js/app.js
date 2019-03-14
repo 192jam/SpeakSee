@@ -29,7 +29,19 @@ angular.module('starter', ['ionic','ngAnimate'])//,'ngFitText'])
 	}, function(obj) {
 			// console.log(obj);
 	})
+	
+	KioskPlugin.isInKiosk(function(isInKiosk){console.log(isInKiosk) });
+	KioskPlugin.setAllowedKeys([ 24, 25 ]);
+	window.addEventListener("volumebuttonslistener", onVolumeButtonsListener, false);
+	
 
+
+
+	function onVolumeButtonsListener(info){
+		console.log("Button pressed: " + info.signal);
+		KioskPlugin.exitKiosk();
+
+	}
 	// fitText(document.getElementsByName('h1'))
 	// fitty('#fittext');
 
