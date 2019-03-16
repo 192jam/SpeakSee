@@ -1,4 +1,4 @@
-<ion-pane ng-controller="mainCtrl"> 
+<ion-pane ng-controller="swipeCtrl"> 
   <div class="bar content  bar-header"> 
     <a class="button icon-left ion-paintbrush  button-royal"  href="#/draw" >Draw</a>
     <a class="button icon end button-dark"  href="#/home" >Auto scroll</a>
@@ -6,21 +6,21 @@
   </div>
   <!-- <a value='Stop Scrolling' id ='b1' style="display:none" ng-click='stopScroll()'></a> -->
      <ion-content class="has-header" scroll="false">
-        <ion-slides id="manualscroll"  options="options" slider="data.slider">
+        <ion-slides id=""  options="options" style="width:100%;height:100%" slider="data.slider">
           <!-- {{items}} -->
-            <ion-slide-page ng-repeat="text in items">
-                  <h1 class="auto" id="maintext">{{text}}</h1>
+            <ion-slide-page  ng-repeat="text in items">
+                  <h1 class="auto" id="maintext" style="text-align:center; width:100%;height:100%" >{{text}}</h1>
     
             </ion-slide-page>
             
             
           </ion-slides> 
         </ion-content>
-   <
-   <div ng-controller="swipeCtrl">
+   
+   <!-- <div ng-controller="swipeCtrl">
        I'm a Header in a Card!
-   </div>
-   >
+   </div> -->
+   
    
 
   <div class="bar bar-footer">

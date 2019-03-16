@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var number = 2;
-angular.module('starter', ['ionic','ngAnimate'])//,'ngFitText'])
+var s;
+angular.module('starter', ['ionic'])//,'ngFitText'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -29,9 +30,10 @@ angular.module('starter', ['ionic','ngAnimate'])//,'ngFitText'])
 	}, function(obj) {
 			// console.log(obj);
 	})
-	
-	KioskPlugin.isInKiosk(function(isInKiosk){console.log(isInKiosk) });
-	KioskPlugin.setAllowedKeys([ 24, 25 ]);
+	if(window.plugins!==undefined){
+		KioskPlugin.isInKiosk(function(isInKiosk){console.log(isInKiosk) });
+		KioskPlugin.setAllowedKeys([ 24, 25 ]);
+	}
 	window.addEventListener("volumebuttonslistener", onVolumeButtonsListener, false);
 	
 
@@ -42,11 +44,8 @@ angular.module('starter', ['ionic','ngAnimate'])//,'ngFitText'])
 		KioskPlugin.exitKiosk();
 
 	}
-	// fitText(document.getElementsByName('h1'))
-	// fitty('#fittext');
 
-
-  });
+});
 })
 .config(($stateProvider, $urlRouterProvider) => 
 {
@@ -54,129 +53,85 @@ angular.module('starter', ['ionic','ngAnimate'])//,'ngFitText'])
 	
 	.state('home',{
 		url:'/home',
-		// cache:false,
+
 		templateUrl:'templates/home.html'
 	})
 
 	.state('draw',
 	{
 		url:'/draw',
-		// cache: false,
+
 		templateUrl: 'templates/draw.html',
 	})
-	.state('swipe',
-	{
-		url:'/swipe',
-		// cache: false,
-		// controller:'	',
-		templateUrl:'templates/slide.html'	
-	})
-
-
+	// .state('swipe',
+	// {
+	// 	url:'/swipe',
+	// 	templateUrl:'templates/slide.html'	
+	// })
 
 	$urlRouterProvider.otherwise('/home');
 })
-.controller('mainCtrl', function($scope,$ionicSlideBoxDelegate,$animate,$ionicActionSheet) {
+.controller('mainCtrl', function($scope,Holder) {
 	// $ionicScrollDelegate.$getByHandle('mainScroll').scrollBottom();
-	console.log('sdsf');
 	
 	var myElement = document.querySelector('body');
 	var mc = new Hammer.Manager(myElement);
 	var pinch = new Hammer.Pinch();
 	mc.add([pinch]);
-	console.log($animate)
+ 
 
-	// $animate.addClass(document.querySelector('#maintext'),'scroll');
-
-	$scope.slidesHasChanged = function(){
-
-		$ionicSlideBoxDelegate.update();
-
-	};
-
-	// split("hi how are you nam");
-
-if(document.getElementById('autoscroll')!== null){
-		document.getElementById('autoscroll').stop();
 		document.getElementById('autoscroll').style.display="none";
 		document.getElementById('autoscroll2').style.display='block';
-	document.querySelector("#maintext").style.fontSize="25vw";
-}
 
-	$scope.split= function split(str, number)
-	{
-		let words = str.split(' ');
-		if (words.length <= number)
-			return str;
-	
-		let iteration = words.length / number;
-		let returnElement = [];
-		for (let index = 0; index <= iteration; index++) 
-		{
-			returnElement.push(words.splice(0,number).join(" "))
+		let main = document.getElementsByTagName("h1");
+		for (let i = 0; i < main.length; i++) {
+			main[i].style.fontSize="25vw";
 		}
-		return returnElement;
-	}
 
 	mc.on("pinchin", function(ev) {
-		document.querySelector("#maintext").style.fontSize;
-		let fontSize=document.querySelector("#maintext").style.fontSize;
+
+		let fontSize=document.getElementById("maintext").style.fontSize;
 		let size = parseFloat (fontSize);
 		if(size > 10)
 		size=size-0.3;
-		if(number > 0)
-			number--;
-		$scope.items= $scope.split(event[0],number);
-		console.log(items)
-		slidesHasChanged()
-		$scope.$apply()
 
-		document.querySelector("#maintext").style.fontSize=size +"vw";
+
+		let main = document.getElementsByTagName("h1");
+		for (let i = 0; i < main.length; i++) {
+			main[i].style.fontSize=size +"vw";
+		}
 	});
 
 	mc.on("pinchout", function(ev) {
-		let fontSize=document.querySelector("#maintext").style.fontSize;
+		let fontSize=document.getElementById("maintext").style.fontSize;
+		
 		let size = parseFloat (fontSize);
-		if(size<30)
+		if(size<40)
 		size=size+0.3;
-		// if(number > 0)
-		number++;
 		
-		$scope.items= $scope.split(event[0],number);
-		console.log(items)
-		slidesHasChanged()
-		$scope.$apply()
-
-		document.querySelector("#maintext").style.fontSize=size +"vw";
+		let main = document.getElementsByTagName("h1");
+		for (let i = 0; i < main.length; i++) {
+			main[i].style.fontSize=size +"vw";
+		}
 	});
-	$ionicActionSheet.show({
-		titleText: 'Press micrphone button to begin'});
-
+	
 	$scope.stopScroll =()=>{
-		
+		console.log('button presse')
     if(document.getElementById('b1').innerText=="Start Scrolling"){
     	document.getElementById('b1').innerText="Stop Scrolling";
-			document.getElementById('autoscroll').start();
 			document.getElementById('autoscroll').style.display='inline';
 			document.getElementById('autoscroll2').style.display='none';
 		}
 		else
 		{
     document.getElementById('b1').innerText="Start Scrolling";
-		document.getElementById('autoscroll').stop();
+		// document.getElementById('autoscroll').stop();
 		document.getElementById('autoscroll').style.display="none";
 		document.getElementById('autoscroll2').style.display='block';
-
-    }
+		}	
 	}
 
-	$scope.recognized = 'Hello my name is jam';
-	
-	$scope.number= 2;
-
-
-	$scope.items = $scope.split($scope.recognized,2);
-
+	$scope.recognized = Holder.value;
 	
 	$scope.record = ()=>{
 		window.plugins.speechRecognition.hasPermission(
@@ -191,97 +146,31 @@ if(document.getElementById('autoscroll')!== null){
 				window.plugins.speechRecognition.startListening(
 				(event)=>{
 					$scope.recognized= event[0];
-					$scope.items= $scope.split(event[0],number);
-					$scope.slidesHasChanged();
+					Holder.value = event[0];
 					$scope.$apply()
-					console.log(items)
 				}, ()=> {
-					window.plugins.toast.show('Please press button and speak into the device', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
+					window.plugins.toast.show('Drag finger to draw', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
 				},options)
 			}
 		},window.plugins.speechRecognition.requestPermission());
 	};
-	
-	// if ( $scope.slider ){
-  //   $scope.slider.updateLoop();
-	// }
-	
-	// $scope.applyText = function (text){
-	// 	let textfield = document.querySelector('#fittext');
-
-	// 	text.forEach(element => {
-	// 		textfield.innerHTML = '<p>Hello World!</p>';
-
-	// 		"<ion-slide-page  style='text-align:center;'><h1>"+element+"</h1></ion-slide-page>"
-	// 	});
-	// }
-
-	$scope.showActionsheet = function() {
-    
-		$ionicActionSheet.show({
-		  titleText: 'Press micrphone button to begin',
-		  // buttons: [
-			// { text: '<i class="icon ion-share"></i> Share' },
-			// { text: '<i class="icon ion-arrow-move"></i> Move' },
-		  // ],
-		  // destructiveText: 'Delete',
-		  cancelText: 'Press and hold the button to record',
-		  // cancel: function() {
-		  // }
-		});
-	}
 
 
-
-	
-
-
-
-
-
-$scope.options = {
-	loop: false,
-	// effect: 'fade',
-	spaceBetween: 100,
-
-	speed: 500,
-	// autoHeight:true
-}
-$scope.$on("$ionicSlides.sliderInitialized", function(event, data){
-	// data.slider is the instance of Swiper
-	if(window.plugins.toast!==undefined) window.plugins.toast.show('Swipe Right and Left', 'long', 'center', function(a){}, function(b){})
-
-	$scope.slider = data.slider;
-	// console.log(data);
-});
-$scope.$on("$ionicSlides.slideChangeStart", function(event, data){
-	console.log('Slide change is beginning');
-});
-$scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
-	// note: the indexes are 0-based
-	$scope.activeIndex = data.slider.activeIndex;
-	$scope.previousIndex = data.slider.previousIndex;
-});
 
 })
 .controller('drawCtrl',($scope) =>
 {
+	window.plugins.toast.show('Please press button and speak into the device', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
+
 	$scope.reset = function(){
 		let canvas = document.querySelector('canvas');
 			canvas.width = canvas.width; 
 	 }
 })
-.controller('swipeCtrl',function($scope, $ionicActionSheet) {
-		// $ionicScrollDelegate.$getByHandle('mainScroll').scrollBottom();
-		// $ionicActionSheet.show({
-		//   titleText: 'Press and hold the button to record',});
-		window.plugins.toast.show('Swipe Right and Left', 'long', 'center', function(a){}, function(b){})
-
-})
 .directive("drawing", function(){
   return {
     restrict: "A",
-    link: (scope, element)=>{
+    link: (scope, element) => {
 			var ctx = element[0].getContext('2d');
 			var drawing = false;
 			// console.log(element);
@@ -290,11 +179,11 @@ $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
 			var lastY;
 			element[0].width = window.innerWidth;
 			element[0].height = window.innerHeight;
-			let canvasPosition = {x:0,y:0};
+			let canvasPosition = {x:0, y:0};
 
-			console.log(element);
-			console.log(canvasPosition);
-			// scope.$();
+			// console.log(element);
+			// console.log(canvasPosition);
+
 			element.bind('touchstart onmousedown', function(event)
 			{ 			 
 				canvasPosition = document.querySelector('canvas').getBoundingClientRect()
@@ -307,7 +196,7 @@ $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
         drawing = true;
       });
       element.bind('touchmove onmousemove', (event)=>{
-				// event.preventDefault();
+				event.preventDefault();
 
 				// console.log(event.touches[0]);
         if(drawing){
@@ -332,7 +221,6 @@ $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
           lastX = currentX;
           lastY = currentY;
         }
-        
       });
   
       element.bind('touchend onmouseup', function(event){
@@ -342,6 +230,11 @@ $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
         
     }
   };
+})
+.factory('Holder', function() {
+  return {
+    value: 'Hi how are you'
+	};
 });
 // function s(text){
 // 	let textfield = document.querySelector('#fittext');

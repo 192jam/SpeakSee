@@ -1,24 +1,28 @@
 <ion-pane ng-controller="mainCtrl"> 
-  <div class="bar content  bar-header"> 
+  <div class="bar  bar-header"> 
     <a class="button icon-left ion-paintbrush  button-royal"  href="#/draw" >Draw</a>
-    <a class="button icon button-dark"  href="#/swipe" >Manual swipe</a>
+    <!-- <a class="button icon button-dark"  href="#/swipe" >Manual swipe</a> -->
+    <button class="button" value='Start Scrolling' id='b1' ng-click='stopScroll()'>Start Scrolling</button>
   </div>
-  <a value='Start Scrolling' id ='b1' style="display:none"ng-click='stopScroll()'></a>
 
   <ion-content class="has-header" >
-      <marquee scrolldelay="30"  scrollamount="25"  id="autoscroll" >
-      <div ng-click="stopScroll()" >
+      <!-- <marquee scrolldelay='150' direction="left" scrollamount="25"  id="autoscroll" > -->
+      <div  id="autoscroll" ng-click="stopScroll()" >
         <h1 id="maintext" style="overflow:visible">{{recognized}}</h1>
       </div>
-      </marquee>
+      <!-- </marquee> -->
       
-      <div id='autoscroll2' ng-click="stopScroll()">
-        <h1 id="maintext">{{recognized}}</h1>
+      <div id='autoscroll2'  ng-click="stopScroll()">
+        <h1  id="maintext">{{recognized}}</h1>
       </div>
     </ion-content>
 
-  <div style="height:15%"class="bar bar-footer">
-    <button class="button icon button-royal ion-mic-a" style=" width:7%;border-radius:100%;" shape="round" ng-click="record()"  ng-mouseup="stop()"></button>
+  <div style="height:18%"class="bar bar-footer">
+    <button class="button button-royal ion-android-microphone icon" style="    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    /* font-size:5em; */
+    width: 60%;" shape="round" ng-click="record()"  ng-mouseup="stop()">&nbsp Start Listening</button>
   </div>
 </ion-pane>
         
