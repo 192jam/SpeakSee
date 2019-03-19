@@ -96,6 +96,10 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
 		for (let i = 0; i < main.length; i++) {
 			main[i].style.fontSize=size +"vw";
 		}
+		let input = document.getElementsByTagName("input");
+		for (let i = 0; i < input.length; i++) {
+			input[i].style.fontSize=size +"vw";
+		}
 	});
 
 	mc.on("pinchout", function(ev) {
@@ -147,7 +151,7 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
 				(event)=>{
 					$scope.recognized= event[0];
 					Holder.value = event[0];
-					document.getElementsByTagName('input').value= event[0];
+					document.getElementsByTagName('input')[0].value= event[0];
 
 					$scope.$apply()
 				}, ()=> {
@@ -161,7 +165,7 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
 .controller('drawCtrl',($scope) =>
 {
 	if(window.plugins!== undefined) 
-		window.plugins.toast.show('Drag finger to draw', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
+		window.plugins.toast.show('Drag finger to draw', 'short', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
 	$scope.reset = function(){
 		let canvas = document.querySelector('canvas');
 			canvas.width = canvas.width; 
