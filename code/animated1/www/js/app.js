@@ -35,15 +35,17 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
 		KioskPlugin.setAllowedKeys([ 24, 25 ]);
 	}
 	window.addEventListener("volumebuttonslistener", onVolumeButtonsListener, false);
-	
-
-
-
+	// this is for test - to get out kiosk mode if the tester is stuck.
 	function onVolumeButtonsListener(info){
 		console.log("Button pressed: " + info.signal);
 		KioskPlugin.exitKiosk();
 
 	}
+
+
+	window.addEventListener('native.keyboardshow', function(){
+		window.Keyboard.hide();
+	});
 
 });
 })
@@ -63,16 +65,10 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
 
 		templateUrl: 'templates/draw.html',
 	})
-	// .state('swipe',
-	// {
-	// 	url:'/swipe',
-	// 	templateUrl:'templates/slide.html'	
-	// })
 
 	$urlRouterProvider.otherwise('/home');
 })
 .controller('mainCtrl', function($scope,Holder) {
-	// $ionicScrollDelegate.$getByHandle('mainScroll').scrollBottom();
 	
 	var myElement = document.querySelector('body');
 	var mc = new Hammer.Manager(myElement);
@@ -113,6 +109,10 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
 		for (let i = 0; i < main.length; i++) {
 			main[i].style.fontSize=size +"vw";
 		}
+		let input = document.getElementsByTagName("input");
+		for (let i = 0; i < input.length; i++) {
+			input[i].style.fontSize=size +"vw";
+		}
 	});
 	
 	$scope.stopScroll =()=>{
@@ -141,27 +141,27 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
 					language:'en-GB',
 					prompt:'Speak and see the words',
 					// showPopup :false ,
-					showPartial:false 
+					showPartial:true 
 				}
 				window.plugins.speechRecognition.startListening(
 				(event)=>{
 					$scope.recognized= event[0];
 					Holder.value = event[0];
+					document.getElementsByTagName('input').value= event[0];
+
 					$scope.$apply()
 				}, ()=> {
-					window.plugins.toast.show('Drag finger to draw', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
+					window.plugins.toast.show('Please press button and speak into the device', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
 				},options)
 			}
 		},window.plugins.speechRecognition.requestPermission());
 	};
-
-
-
+	
 })
 .controller('drawCtrl',($scope) =>
 {
-	window.plugins.toast.show('Please press button and speak into the device', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
-
+	if(window.plugins!== undefined) 
+		window.plugins.toast.show('Drag finger to draw', 'long', 'bottom', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
 	$scope.reset = function(){
 		let canvas = document.querySelector('canvas');
 			canvas.width = canvas.width; 
@@ -173,16 +173,12 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
     link: (scope, element) => {
 			var ctx = element[0].getContext('2d');
 			var drawing = false;
-			// console.log(element);
       
       var lastX;
 			var lastY;
 			element[0].width = window.innerWidth;
 			element[0].height = window.innerHeight;
 			let canvasPosition = {x:0, y:0};
-
-			// console.log(element);
-			// console.log(canvasPosition);
 
 			element.bind('touchstart onmousedown', function(event)
 			{ 			 
@@ -198,14 +194,11 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
       element.bind('touchmove onmousemove', (event)=>{
 				event.preventDefault();
 
-				// console.log(event.touches[0]);
-        if(drawing){
-					// console.log("draw",event.touches[0]);
+				if(drawing){
           // get current mouse position
           currentX = event.touches[0].pageX - canvasPosition.x;
 					currentY = event.touches[0].pageY - canvasPosition.y;
-					console.log("postion",	currentX, currentY);	
-					console.log( "offset",	canvasPosition.x,"y :",canvasPosition.y);	
+
 					ctx.beginPath();
 					ctx.lineJoin = "round";
 					// ctx.lineCap = "round"
@@ -236,12 +229,3 @@ angular.module('starter', ['ionic'])//,'ngFitText'])
     value: 'Hi how are you'
 	};
 });
-// function s(text){
-// 	let textfield = document.querySelector('#fittext');
-
-// 	text.forEach(element => {
-// 		textfield.insertAdjacentHTML ('beforeend',"<ion-slide-page  style='text-align:center;'><h1>"+element+"</h1></ion-slide-page>")
-// 	});
-// }
-
-

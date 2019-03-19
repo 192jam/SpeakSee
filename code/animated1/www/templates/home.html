@@ -1,22 +1,35 @@
 <ion-pane ng-controller="mainCtrl"> 
-  <div class="bar  bar-header"> 
+  <div class="bar bar-header"> 
     <a class="button icon-left ion-paintbrush  button-royal"  href="#/draw" >Draw</a>
     <!-- <a class="button icon button-dark"  href="#/swipe" >Manual swipe</a> -->
     <button class="button" value='Start Scrolling' id='b1' ng-click='stopScroll()'>Start Scrolling</button>
   </div>
 
-  <ion-content class="has-header" >
+  <ion-content class="has-header" ng-click="window.Keyboard.hide();console.log('sdfsd')">
       <!-- <marquee scrolldelay='150' direction="left" scrollamount="25"  id="autoscroll" > -->
       <div  id="autoscroll" ng-click="stopScroll()" >
         <h1 id="maintext" style="overflow:visible">{{recognized}}</h1>
       </div>
       <!-- </marquee> -->
       
-      <div id='autoscroll2'  ng-click="stopScroll()">
+      <!-- <div   ng-click="stopScroll()">
         <h1  id="maintext">{{recognized}}</h1>
-      </div>
+      </div> -->
+      <!-- <form action=""> -->
+        
+        <label id='autoscroll2' >
+          
+          <input 
+            style=" width:100%;;height:100%;font-size:25.5vw" 
+            id='maintext' on-touch="window.Keyboard.hide();" 
+            on-focus="window.Keyboard.hide();console.log('sdfsd')" 
+            type = "text" 
+            value= '{{recognized}}' 
+            placeholder = "Press record or type" />
+        </label>
+      <!-- </form> -->
+      
     </ion-content>
-
   <div style="height:18%"class="bar bar-footer">
     <button class="button button-royal ion-android-microphone icon" style="    margin-left: auto;
     margin-right: auto;
@@ -24,6 +37,8 @@
     /* font-size:5em; */
     width: 60%;" shape="round" ng-click="record()"  ng-mouseup="stop()">&nbsp Start Listening</button>
   </div>
+
+  
 </ion-pane>
         
         
