@@ -1,5 +1,5 @@
 # Speak and See
-**2017/2018 Team project to help communicate with the elderly and others with hearing problems 
+**2017/2018 Team project to help communicate with the elderly and others with hearing problems**
 
 
 * **NO authentication data:** 
